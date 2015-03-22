@@ -1,0 +1,27 @@
+import nltk
+import codecs
+
+filename = '/Users/benjsto/Dropbox/Apps/quotoxic/ron_swanson_quotes.txt'
+
+lines = []
+tagged_words = []
+
+BOM = codecs.BOM_UTF8.decode('utf8')
+with codecs.open(filename, encoding='utf-8') as f:
+    for line in f:
+        lines.append(nltk.word_tokenize(line.lstrip(BOM).strip().encode('utf8')))
+
+for line in lines:
+    tagged_line = nltk.pos_tag(line)
+
+    for word in tagged_line:
+        tagged_words.append(word)
+
+#print(tagged_words)
+print(str(len(tagged_words)) + " tagged words")
+
+tagged_filename = '/Users/benjsto/Dropbox/Apps/quotoxic/ron_swanson_tagged.txt'
+
+with open(tagged_filename, 'w') as f:
+    for t in tagged_words:
+        f.write(str(t) + ',')
